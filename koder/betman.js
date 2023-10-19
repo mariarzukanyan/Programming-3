@@ -1,7 +1,8 @@
-class Betman {
+let LivingCreature = require('./livingCreature')
+let random = require("./random");
+module.exports = class Betman extends LivingCreature{
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y)
         this.energy = 10;
         this.index = index;
         this.directions = [];
@@ -20,7 +21,7 @@ class Betman {
         ];
     }
 
-    chooseCell(character,character2,character3,character4) {
+    chooseCell(character, character2, character3, character4) {
         var found = [];
         this.getNewCoordinates()
         for (var i in this.directions) {
@@ -45,7 +46,7 @@ class Betman {
         }
     }
     eat() {
-        let foods = this.chooseCell(3,2,1,4)
+        let foods = this.chooseCell(3, 2, 1, 4)
         let food = random(foods)
         if (food) {
             this.energy++;
@@ -56,7 +57,7 @@ class Betman {
             this.x = newX
             this.y = newY
 
-            
+
             for (var i in predatorArr) {
                 if (newX == predatorArr[i].x && newY == predatorArr[i].y) {
                     predatorArr.splice(i, 1);
@@ -107,7 +108,7 @@ class Betman {
             this.die()
         }
 
-    } 
+    }
     die() {
         matrix[this.y][this.x] = 0;
         for (var i in betmanArr) {

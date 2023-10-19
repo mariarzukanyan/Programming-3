@@ -1,9 +1,10 @@
-class Bomb{
+
+let LivingCreature = require('./livingCreature')
+module.exports =class Bomb extends LivingCreature {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        super(x, y)
         this.bursted = false;
-        this.cooldown = random(25,100);
+        this.cooldown = random(25, 100);
         this.disappearCooldown = 5;
         matrix[y][x] = 13;
         this.directions = [
@@ -48,46 +49,45 @@ class Bomb{
     }
 
 
-start() {
-    this.cooldown--;
-    if (this.bursted) 
-    {
-        this.disappearCooldown--;
+    start() {
+        this.cooldown--;
+        if (this.bursted) {
+            this.disappearCooldown--;
+        }
+        if (this.cooldown <= 0) {
+            this.burst();
+        }
+        if (this.disappearCooldown <= 0) {
+            this.remove();
+        }
     }
-    if (this.cooldown <= 0) {
-        this.burst();
-    }
-    if (this.disappearCooldown <= 0) {
-        this.remove();
-    }
-}
 
-remove() {
-    for (const d in this.directions) {
-        let x = this.directions[d][0];
-        let y = this.directions[d][1];
-        if (!(x >= 0 && y >= 0 && x < matrix.length && y < matrix.length)) continue;
-        matrix[y][x] = 0;
+    remove() {
+        for (const d in this.directions) {
+            let x = this.directions[d][0];
+            let y = this.directions[d][1];
+            if (!(x >= 0 && y >= 0 && x < matrix.length && y < matrix.length)) continue;
+            matrix[y][x] = 0;
+        }
+        matrix[this.y][this.x] = 0;
+        for (var i in bombArr) {
+            if (!(this.x == bombArr[i].x && this.y == bombArr[i].y)) continue;
+            bombArr.splice(i, 1);
+            break;
+        }
     }
-    matrix[this.y][this.x] = 0;
-    for (var i in bombArr) {
-        if (!(this.x == bombArr[i].x && this.y == bombArr[i].y)) continue;
-        bombArr.splice(i, 1);
-        break;
-    }
-}
 
-burst() {
-    matrix[this.y][this.x] = 13;
-    for (const i in this.directions) {
-        let x = this.directions[i][0];
-        let y = this.directions[i][1];
-        if (!(x >= 0 && y >= 0 && x < matrix.length && y < matrix.length)) continue;
-        matrix[y][x] = 13;
-        this.removeObject(x, y)
+    burst() {
+        matrix[this.y][this.x] = 13;
+        for (const i in this.directions) {
+            let x = this.directions[i][0];
+            let y = this.directions[i][1];
+            if (!(x >= 0 && y >= 0 && x < matrix.length && y < matrix.length)) continue;
+            matrix[y][x] = 13;
+            this.removeObject(x, y)
+        }
+        this.bursted = true;
     }
-    this.bursted = true;
-}
 
     removeObject(x, y) {
         for (const i in grassEaterArr) {
