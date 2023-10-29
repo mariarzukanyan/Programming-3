@@ -13,21 +13,23 @@ server.listen(3000, function () {
 
 
 let Predator = require('./predator')
-let Grass = require('./grass')
+let Grass = require('./class')
 let GrassEater = require('./grasseater')
 let Betman = require('./betman')
 let Avast = require('./avast')
+let random = require ('./random')
+let Bomb = require ('./bomb')
 
 
 
-var matrix = [];
-var side = 40;
-var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var avastArr = [];
-var betmanArr = [];
-var bombArr = [];
+var size = 40;
+ grassArr = [];
+ grassEaterArr = [];
+ predatorArr = [];
+ avastArr = [];
+ betmanArr = [];
+ bombArr = [];
+matrix = [];
 
 
 function matrixGenerator(size, countGrass, countGrassEater, PredatoCount, AvastCount, BetmanCount, BombCount) {

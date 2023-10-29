@@ -1,15 +1,21 @@
-let socket = io();
-socket.on
+let side = 10;
+const sideX = 30;
+const sideY = 30;
+var initialMatrix = []
+const socket = io();
+const dzmer=  document.getElementById("winter");
+const amar =  document.getElementById("summer");
+
 
 function setup() {
-    createCanvas(matrix[0].length * side, matrix.length * side);
-    background('#acacac');
-
+   createCanvas(sideX * side, sideY * side);
+   background('#acacac');
 
 }
+   
 
 function drawful(matrix) {
-
+    initialMatrix = matrix
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -40,6 +46,10 @@ function drawful(matrix) {
 
 
 }
-socket.on ('update matrix', playGame)
 
-
+socket.on("update matrix", (matrix)=>{
+    drawful(matrix)
+   })
+ socket.on("update matrix", (matrix)=>{
+  initialMatrix = matrix
+ })

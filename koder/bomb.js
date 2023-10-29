@@ -1,10 +1,11 @@
-
 let LivingCreature = require('./livingCreature')
+let random = require ('./random')
 module.exports =class Bomb extends LivingCreature {
     constructor(x, y) {
         super(x, y)
         this.bursted = false;
-        this.cooldown = random(25, 100);
+        this.cooldown = random(45);
+        // this.cooldown = Math.floor(Math.random() * (100 - 25 + 1)) + 25;
         this.disappearCooldown = 5;
         matrix[y][x] = 13;
         this.directions = [

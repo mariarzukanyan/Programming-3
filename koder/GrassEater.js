@@ -22,7 +22,7 @@ module.exports =class GrassEater extends LivingCreature {
 
     chooseCell(character) {
         this.getNewCoordinates()
-       return this.chooseCell(character)
+       return super.chooseCell(character)
     }
     mul() {
         var newCell = random(this.chooseCell(1));
